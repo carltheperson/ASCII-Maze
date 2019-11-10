@@ -1,15 +1,17 @@
 import java.awt.Dimension;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ASCIIConverter {
 	
 	static public Dimension dimension;
 	
 	static public boolean[][] maze;
+	
+	static public ArrayList<int[]> touched = new ArrayList<int[]>();
+	
 	
 	public ASCIIConverter (Dimension dimension) {
 	}
@@ -64,7 +66,8 @@ public class ASCIIConverter {
 		ArrayList<Character> possible = new ArrayList<Character>();
 		
 		for (int i = 0; i < directions.length; i++) {
-			if (legalMove(locateLine(x, y, directions[i]))) {
+
+			if (legalMove(locateLine(x, y, directions[i])) && !isTouched(getNewXY(x, y, directions[i]))) {
 				possible.add(directions[i]);
 			}
 		}
@@ -72,10 +75,36 @@ public class ASCIIConverter {
 		return possible;
 	}
 	
+	static public void touch(int[] xy) {
+		touched.add(xy);
+	}
+	
+	static public boolean isTouched(int[] xy) {
+		boolean isItTouched = false;
+		
+		for (int[] thouch : touched) {
+			if (thouch[0] == xy[0] && thouch[1] == xy[1]) {
+				isItTouched = true;
+			}
+		}
+		
+		return isItTouched;
+	}
+	
+	static public int[] getNewXY(int x, int y, char direction) {
+		if (direction == 'n') {return new int[]{x, y - 1};}
+		if (direction == 's') {return new int[]{x, y + 1};}
+		if (direction == 'w') {return new int[]{x - 1, y};}
+		if (direction == 'e') {return new int[]{x + 1, y};}
+		
+		return null;
+		
+	}
+	
 	static public void displayMaze() {
 		
 		try {
-			TimeUnit.MILLISECONDS.sleep(6);
+			TimeUnit.MILLISECONDS.sleep(20);
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -103,6 +132,7 @@ public class ASCIIConverter {
 		
 		System.out.println(finalMaze);
 	}
+
 	
 	
 	
