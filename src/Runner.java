@@ -2,8 +2,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Runner {
-	private int x;
-	private int y;
+	public int x;
+	public int y;
+
+	public int oldx;
+	public int oldy;
+
 	private char direction;
 
 	public boolean done = false;
@@ -21,25 +25,34 @@ public class Runner {
 
 	public void update() {
 
+		ASCIIConverter.touch(new int[] { x, y });
 		move = ASCIIConverter.locateLine(x, y, direction);
 
 		// Do move
-		ASCIIConverter.maze[move[0]][move[1]] = false;
-		ASCIIConverter.touch(new int[] { x, y });
+
+		if (ASCIIConverter.legalMove(move)) {
+			ASCIIConverter.maze[move[0]][move[1]] = false;
+		}
 
 		// Set new x,y from move
 		int[] newXY = ASCIIConverter.getNewXY(x, y, direction);
+
+		oldx = x;
+		oldy = y;
+
 		x = newXY[0];
 		y = newXY[1];
 
-		// Check if dead
 		directions = ASCIIConverter.possibleDirections(x, y);
-		if (directions.size() == 0) {
-			ASCIIConverter.displayMaze();
+		ASCIIConverter.touch(new int[] { x, y });
+		if (directions.size() == 0) { // Check if dead
 			done = true;
 		} else {
-			// Pick new direction
-			direction = directions.get(randomGenerator.nextInt(directions.size()));
+			//                                                             V--- Change this to change maze
+			if (!directions.contains(direction) || randomGenerator.nextInt(11) > 7) {
+				direction = directions.get(randomGenerator.nextInt(directions.size()));
+			}
+
 		}
 
 	}
