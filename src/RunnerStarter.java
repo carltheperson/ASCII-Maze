@@ -22,8 +22,7 @@ public class RunnerStarter {
 
 				int[] line = ASCIIConverter.locateLine(newXY[0], newXY[1], direction);
 
-				if (!ASCIIConverter.isTouched(newXY) && !alreadyInRunnerPoints(newXY)
-						&& ASCIIConverter.legalMove(line)) {
+				if (!ASCIIConverter.isTouched(newXY) && !alreadyInRunnerPoints(newXY) && ASCIIConverter.legalMove(line)) {
 
 					runnerPoints.add(newXY);
 					runnerPointsDirections.add(direction);

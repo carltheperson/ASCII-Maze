@@ -122,7 +122,7 @@ public class ASCIIConverter {
 		return 'x';
 	}
 
-	static public void displayMaze() {
+	static public String displayMaze() {
 
 		ArrayList<String> finalMaze = new ArrayList<String>();
 
@@ -144,7 +144,7 @@ public class ASCIIConverter {
 			finalMaze.add("\n");
 		}
 
-		System.out.println(fix(finalMaze));
+		return fix(finalMaze);
 	}
 
 	static public String fix(ArrayList<String> finalMaze) {

@@ -1,9 +1,11 @@
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class Panel {
 
-	public Panel() {
-		ASCIIConverter.dimension = new Dimension(80, 40);
+	public Panel(String[] args) {
+		ASCIIConverter.dimension = new Dimension(300, 150);
 		ASCIIConverter.createLines();
 
 		Runner runner = new Runner(1, 1, 'e');
@@ -20,8 +22,23 @@ public class Panel {
 				RunnerStarter.useRunnerPoint(runnerPointIndex);
 				RunnerStarter.updateRunnerPoints();
 
+				System.out.println(RunnerStarter.runnerPoints.size());
 				if (RunnerStarter.runnerPoints.size() == 0) {
-					ASCIIConverter.displayMaze();
+					
+					// Args
+					for (int i = 0; i < args.length; i ++) {
+						if (args[i].equals("-file")) {
+							try (PrintWriter out = new PrintWriter("maze.txt")) {
+							    out.println(ASCIIConverter.displayMaze());
+							} catch (FileNotFoundException e) {}
+							System.exit(0);
+						}
+						if (args[i].equals("plane")) {
+							System.out.println(ASCIIConverter.displayMaze());
+						}
+					}
+					
+					System.out.println(ASCIIConverter.displayMaze());
 					System.exit(0);
 				}
 
