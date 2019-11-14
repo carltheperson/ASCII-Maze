@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 public class Panel {
 
 	public Panel(String[] args) {
-		ASCIIConverter.dimension = new Dimension(300, 150);
+		ASCIIConverter.dimension = new Dimension(40, 80);
 		ASCIIConverter.createLines();
 
 		Runner runner = new Runner(1, 1, 'e');
@@ -22,7 +22,6 @@ public class Panel {
 				RunnerStarter.useRunnerPoint(runnerPointIndex);
 				RunnerStarter.updateRunnerPoints();
 
-				System.out.println(RunnerStarter.runnerPoints.size());
 				if (RunnerStarter.runnerPoints.size() == 0) {
 					
 					// Args
