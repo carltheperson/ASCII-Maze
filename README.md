@@ -5,11 +5,14 @@ A command line program that lets you create random mazes. The mazes are text bas
 
 ## How to Run
 
-Set your size here in Panel.java and compile the program, then run it in the command line.
+Example - this will print to maze to your terminal:
 ```
-ASCIIConverter.dimension = new Dimension(40, 80);
+java -jar ASCII-Maze.jar -w 40 -h 20
 ```
-
+Example - this will export it to a file called "my_maze.txt":
+```
+java -jar ASCII-Maze.jar -w 40 -h 20 -file my_maze.txt
+```
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

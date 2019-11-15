@@ -26,7 +26,6 @@ public class RunnerStarter {
 
 					runnerPoints.add(newXY);
 					runnerPointsDirections.add(direction);
-
 				}
 			}
 		}

@@ -5,7 +5,26 @@ import java.io.PrintWriter;
 public class Panel {
 
 	public Panel(String[] args) {
-		ASCIIConverter.dimension = new Dimension(40, 80);
+		
+		boolean printToFile = false;
+		String fileName = "maze.txt";
+		int width = 80;
+		int height = 40;
+		
+		// Args
+		for (int i = 0; i < args.length; i ++) {
+			if (args[i].equals("-file")) {
+				printToFile = true;
+				fileName = args[i + 1];
+			} if (args[i].equals("-w")) {
+				width = Integer.parseInt(args[i + 1])/ 2 * 2;
+			} if (args[i].equals("-h")) {
+				height = Integer.parseInt(args[i + 1])/ 2 * 2;
+			}
+			
+		}
+		
+		ASCIIConverter.dimension = new Dimension(width, height);
 		ASCIIConverter.createLines();
 
 		Runner runner = new Runner(1, 1, 'e');
@@ -24,18 +43,13 @@ public class Panel {
 
 				if (RunnerStarter.runnerPoints.size() == 0) {
 					
-					// Args
-					for (int i = 0; i < args.length; i ++) {
-						if (args[i].equals("-file")) {
-							try (PrintWriter out = new PrintWriter("maze.txt")) {
-							    out.println(ASCIIConverter.displayMaze());
-							} catch (FileNotFoundException e) {}
+					if (printToFile == true) {
+						try (PrintWriter out = new PrintWriter(fileName)) {
+						    out.println(ASCIIConverter.displayMaze());
+						} catch (FileNotFoundException e) {}
 							System.exit(0);
-						}
-						if (args[i].equals("plane")) {
-							System.out.println(ASCIIConverter.displayMaze());
-						}
 					}
+						
 					
 					System.out.println(ASCIIConverter.displayMaze());
 					System.exit(0);
